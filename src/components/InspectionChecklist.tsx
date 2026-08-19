@@ -165,7 +165,11 @@ export function InspectionChecklist() {
       const sectionsWithMissingCritical = SECTIONS.filter((section) =>
         section.items.some((item) => item.critical && !checked.has(item.id)),
       ).map((section) => section.id);
-      setExpanded((prev) => new Set([...prev, ...sectionsWithMissingCritical]));
+      setExpanded((prev) => {
+        const next = new Set<string>(prev);
+        sectionsWithMissingCritical.forEach((id) => next.add(id));
+        return next;
+      });
     }
   };
 

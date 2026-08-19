@@ -1,5 +1,5 @@
 import { Link } from "@tanstack/react-router";
-import { ShieldCheck, Search, Home, Menu, X } from "lucide-react";
+import { ShieldCheck, Search, Home, Menu, X, ClipboardCheck } from "lucide-react";
 import { useState, type ReactNode } from "react";
 
 const NAV = [
