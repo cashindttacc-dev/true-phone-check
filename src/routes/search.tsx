@@ -4,12 +4,13 @@ import { Search, SlidersHorizontal, X } from "lucide-react";
 import { PhoneCard } from "@/components/PhoneCard";
 import { BRANDS, OPERATING_SYSTEMS, PHONES } from "@/data/phones";
 
-type SearchParams = { q?: string };
+type SearchParams = { q?: string | undefined };
 
 export const Route = createFileRoute("/search")({
-  validateSearch: (search: Record<string, unknown>): SearchParams => ({
-    q: typeof search.q === "string" && search.q ? search.q : undefined,
-  }),
+  validateSearch: (search: Record<string, unknown>): SearchParams => {
+    const raw = search["q"];
+    return typeof raw === "string" && raw ? { q: raw } : {};
+  },
   head: () => ({
     meta: [
       { title: "Search Original Phones — TruePhone Catalog" },

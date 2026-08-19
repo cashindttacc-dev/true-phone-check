@@ -31,7 +31,7 @@ export function Hero() {
         <form
           onSubmit={(e) => {
             e.preventDefault();
-            navigate({ to: "/search", search: { q: query || undefined } });
+            navigate({ to: "/search", search: query ? { q: query } : {} });
           }}
           className="mx-auto mt-9 flex max-w-xl items-center gap-2 rounded-xl border border-primary-foreground/15 bg-primary-foreground/10 p-2 backdrop-blur transition-colors focus-within:border-success/60"
         >
