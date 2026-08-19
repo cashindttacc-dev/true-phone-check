@@ -1,11 +1,12 @@
 import { Link } from "@tanstack/react-router";
-import { ShieldCheck, Search, Home, Menu, X } from "lucide-react";
+import { ShieldCheck, Search, Home, Menu, X, ClipboardCheck } from "lucide-react";
 import { useState, type ReactNode } from "react";
 
 const NAV = [
   { to: "/", label: "Home", icon: Home },
   { to: "/search", label: "Search", icon: Search },
   { to: "/verify", label: "Verify", icon: ShieldCheck },
+  { to: "/inspect", label: "Inspect", icon: ClipboardCheck },
 ] as const;
 
 /** Brand logo mark + wordmark, reused in the header and footer. */
