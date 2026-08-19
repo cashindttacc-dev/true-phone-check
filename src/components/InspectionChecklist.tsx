@@ -107,7 +107,7 @@ const SECTIONS: ChecklistSection[] = [
 /** Confidence-inspiring interactive phone inspection checklist. */
 export function InspectionChecklist() {
   const [checked, setChecked] = useState<Set<string>>(new Set());
-  const [expanded, setExpanded] = useState<Set<string>>(new Set>(["identity"]));
+  const [expanded, setExpanded] = useState<Set<string>>(new Set(["identity"]));
   const [showWarning, setShowWarning] = useState(false);
 
   const totalItems = useMemo(
