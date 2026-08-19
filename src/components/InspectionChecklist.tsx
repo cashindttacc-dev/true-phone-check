@@ -196,16 +196,18 @@ export function InspectionChecklist() {
 
       {/* Critical warning */}
       {showWarning && criticalUnchecked.length > 0 && (
-        <Alert
-          variant="destructive"
-          className="animate-in fade-in slide-in-from-top-2 duration-300"
+        <div
+          role="alert"
+          className="animate-in fade-in slide-in-from-top-2 duration-300 flex items-start gap-3 rounded-2xl border border-warning/40 bg-warning/10 px-5 py-4 text-warning"
         >
-          <AlertCircle className="size-4" />
-          <AlertTitle>Critical checks missing</AlertTitle>
-          <AlertDescription>
-            Please complete the highlighted critical items before finishing the inspection.
-          </AlertDescription>
-        </Alert>
+          <AlertCircle className="mt-0.5 size-5 shrink-0" />
+          <div>
+            <p className="font-semibold">Critical checks missing</p>
+            <p className="mt-1 text-sm opacity-90">
+              Please complete the highlighted critical items before finishing the inspection.
+            </p>
+          </div>
+        </div>
       )}
 
       {/* Success banner */}
