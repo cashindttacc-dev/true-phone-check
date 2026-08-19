@@ -31,7 +31,7 @@ export function PhoneCard({ phone }: { phone: Phone }) {
           {phone.storage} · {phone.display} · {phone.os}
         </p>
         <div className="flex items-center justify-between pt-1">
-          <span className="font-display text-lg font-bold text-foreground">${phone.price}</span>
+          <span className="font-display text-lg font-bold text-foreground">₦{phone.price.toLocaleString()}</span>
           <button
             type="button"
             className="rounded-md border border-input px-3 py-1.5 text-xs font-semibold text-foreground transition-colors hover:bg-accent"

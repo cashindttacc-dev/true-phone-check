@@ -35,7 +35,7 @@ function SearchPage() {
   const [query, setQuery] = useState(q ?? "");
   const [brands, setBrands] = useState<string[]>([]);
   const [systems, setSystems] = useState<string[]>([]);
-  const [maxPrice, setMaxPrice] = useState(1400);
+  const [maxPrice, setMaxPrice] = useState(2100000);
   const [filtersOpen, setFiltersOpen] = useState(false);
 
   const results = useMemo(() => {
@@ -55,7 +55,7 @@ function SearchPage() {
   const clearAll = () => {
     setBrands([]);
     setSystems([]);
-    setMaxPrice(1400);
+    setMaxPrice(2100000);
     setQuery("");
     navigate({ to: "/search", search: {} });
   };
@@ -132,13 +132,13 @@ function SearchPage() {
 
             <fieldset>
               <legend className="mb-2 text-xs uppercase tracking-wide text-muted-foreground">
-                Max price: ${maxPrice}
+                Max price: ₦{maxPrice.toLocaleString()}
               </legend>
               <input
                 type="range"
-                min={300}
-                max={1400}
-                step={50}
+                min={500000}
+                max={2100000}
+                step={50000}
                 value={maxPrice}
                 onChange={(e) => setMaxPrice(Number(e.target.value))}
                 className="w-full accent-primary"
