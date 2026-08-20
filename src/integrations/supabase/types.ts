@@ -14,7 +14,45 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      imei_records: {
+        Row: {
+          authentic: boolean
+          brand: string
+          created_at: string
+          id: string
+          imei: string
+          model: string
+          purchase_region: string
+          storage: string
+          warranty_status: string
+          warranty_until: string | null
+        }
+        Insert: {
+          authentic?: boolean
+          brand: string
+          created_at?: string
+          id?: string
+          imei: string
+          model: string
+          purchase_region: string
+          storage: string
+          warranty_status?: string
+          warranty_until?: string | null
+        }
+        Update: {
+          authentic?: boolean
+          brand?: string
+          created_at?: string
+          id?: string
+          imei?: string
+          model?: string
+          purchase_region?: string
+          storage?: string
+          warranty_status?: string
+          warranty_until?: string | null
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
