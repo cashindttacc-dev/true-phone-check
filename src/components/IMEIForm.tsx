@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useServerFn } from "@tanstack/react-start";
 import {
   BadgeCheck,
   HelpCircle,
@@ -7,7 +8,7 @@ import {
   ShieldCheck,
   Smartphone,
 } from "lucide-react";
-import { verifyImei, type VerificationResult } from "@/data/phones";
+import { lookupImei, type ImeiLookupResult } from "@/lib/imei.functions";
 import {
   Dialog,
   DialogContent,
@@ -17,12 +18,13 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 
-/** IMEI / serial number checker with mocked 2s lookup and a result card. */
+/** IMEI / serial number checker backed by the Cloud IMEI registry. */
 export function IMEIForm() {
   const [imei, setImei] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const [result, setResult] = useState<VerificationResult | null>(null);
+  const [result, setResult] = useState<ImeiLookupResult | null>(null);
+  const runLookup = useServerFn(lookupImei);
 
   const digits = imei.replace(/\D/g, "");
 
@@ -30,15 +32,20 @@ export function IMEIForm() {
     e.preventDefault();
     setError(null);
     setResult(null);
+    if (digits.length !== 15) {
+      setError("Enter a valid 15-digit IMEI or serial number.");
+      return;
+    }
     setLoading(true);
     try {
-      setResult(await verifyImei(imei));
+      setResult(await runLookup({ data: { imei: digits } }));
     } catch (err) {
       setError(err instanceof Error ? err.message : "Verification failed.");
     } finally {
       setLoading(false);
     }
   }
+
 
   return (
     <div className="space-y-6">
