@@ -125,8 +125,25 @@ export function IMEIForm() {
         )}
       </form>
 
-      {/* Result card */}
-      {result && (
+      {/* Not found in registry */}
+      {result && !result.found && (
+        <div className="overflow-hidden rounded-2xl border border-destructive/40 bg-card">
+          <div className="flex items-center gap-3 bg-destructive px-5 py-4 text-destructive-foreground">
+            <ShieldAlert className="size-6" />
+            <div>
+              <p className="font-display text-lg font-bold">Not Found in Registry</p>
+              <p className="text-xs opacity-90">IMEI {result.imei} has no matching record</p>
+            </div>
+          </div>
+          <p className="px-5 py-4 text-sm text-muted-foreground">
+            This device could not be verified. Double-check the digits, then treat the handset as
+            unverified until the seller can produce matching documentation.
+          </p>
+        </div>
+      )}
+
+      {/* Verified result card */}
+      {result?.found && (
         <div className="overflow-hidden rounded-2xl border border-success/40 bg-card shadow-glow">
           <div className="flex items-center gap-3 bg-success px-5 py-4 text-success-foreground">
             <BadgeCheck className="size-6" />
@@ -148,7 +165,11 @@ export function IMEIForm() {
                 <dt className="text-xs uppercase tracking-wide text-muted-foreground">{label}</dt>
                 <dd className="mt-1 text-sm font-semibold text-foreground">
                   {label === "Warranty status" ? (
-                    <span className="inline-flex items-center gap-1.5 text-success">
+                    <span
+                      className={`inline-flex items-center gap-1.5 ${
+                        value === "Active" ? "text-success" : "text-warning"
+                      }`}
+                    >
                       <BadgeCheck className="size-4" /> {value}
                     </span>
                   ) : (
@@ -159,10 +180,11 @@ export function IMEIForm() {
             ))}
           </dl>
           <p className="flex items-center gap-2 border-t border-border px-5 py-3 text-xs text-muted-foreground">
-            <Smartphone className="size-3.5" /> Demo result generated from mock data.
+            <Smartphone className="size-3.5" /> Result served from the TruePhone device registry.
           </p>
         </div>
       )}
+
     </div>
   );
 }
