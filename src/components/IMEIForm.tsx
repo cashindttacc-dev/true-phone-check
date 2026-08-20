@@ -160,6 +160,7 @@ export function IMEIForm() {
               ["Purchase region", result.purchaseRegion],
               ["Warranty status", result.warranty],
               ["Covered until", result.warrantyUntil],
+              ...(result.details ?? []).map((d) => [d.label, d.value] as const),
             ].map(([label, value]) => (
               <div key={label} className="bg-card px-5 py-4">
                 <dt className="text-xs uppercase tracking-wide text-muted-foreground">{label}</dt>
@@ -180,7 +181,10 @@ export function IMEIForm() {
             ))}
           </dl>
           <p className="flex items-center gap-2 border-t border-border px-5 py-3 text-xs text-muted-foreground">
-            <Smartphone className="size-3.5" /> Result served from the TruePhone device registry.
+            <Smartphone className="size-3.5" />{" "}
+            {result.source === "api"
+              ? "Result served live from the global IMEI checker API."
+              : "Result served from the TruePhone device registry."}
           </p>
         </div>
       )}
