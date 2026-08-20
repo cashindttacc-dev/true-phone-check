@@ -107,7 +107,7 @@ function Footer() {
         <div className="space-y-2 text-sm">
           <p className="font-semibold text-foreground">Good to know</p>
           <p className="text-muted-foreground">
-            Verification results shown here are simulated demo data.
+            IMEI checks read from the TruePhone device registry.
           </p>
           <p className="text-muted-foreground">
             © {new Date().getFullYear()} TruePhone. All rights reserved.
