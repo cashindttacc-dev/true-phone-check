@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { useServerFn } from "@tanstack/react-start";
 import {
   BadgeCheck,
@@ -9,6 +9,7 @@ import {
   Smartphone,
 } from "lucide-react";
 import { lookupImei, type ImeiLookupResult } from "@/lib/imei.functions";
+import { detectModelFromImei, formatNaira } from "@/data/phones";
 import {
   Dialog,
   DialogContent,
@@ -27,6 +28,8 @@ export function IMEIForm() {
   const runLookup = useServerFn(lookupImei);
 
   const digits = imei.replace(/\D/g, "");
+  const detected = useMemo(() => detectModelFromImei(digits), [digits]);
+
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
