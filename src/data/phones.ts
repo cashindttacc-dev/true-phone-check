@@ -79,15 +79,24 @@ const BRAND_HUE: Record<string, string> = {
 
 type Raw = [name: string, year: number, usd: number, storage: string, display: string];
 
+/** Stable 8-digit TAC derived from the model id. */
+function tacFor(id: string): string {
+  let h = 0;
+  for (const ch of id) h = (h * 31 + ch.charCodeAt(0)) % 1000000;
+  return `35${String(h).padStart(6, "0")}`;
+}
+
 function build(brand: string, os: Phone["os"], rows: Raw[]): Phone[] {
   return rows.map(([name, year, usd, storage, display]) => {
     const id = name
       .toLowerCase()
       .replace(/[^a-z0-9]+/g, "-")
       .replace(/(^-|-$)/g, "");
+    const image = BRAND_IMAGE[brand] ?? genericImg;
     return {
       id,
       name,
+      model: name,
       brand,
       os,
       year,
@@ -97,9 +106,12 @@ function build(brand: string, os: Phone["os"], rows: Raw[]): Phone[] {
       display,
       verified: true,
       accent: BRAND_HUE[brand] ?? "220",
-      image: `https://placehold.co/640x480/0f172a/ffffff/png?text=${encodeURIComponent(name)}`,
+      image,
+      imageUrl: image,
+      tac: tacFor(id),
     };
   });
+
 }
 
 const APPLE = build("Apple", "iOS", [
