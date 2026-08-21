@@ -1,11 +1,19 @@
 /**
- * Mock data layer for TruePhone.
+ * Device database for TruePhone.
  * Replace these arrays with real API calls when a backend is added.
  */
+import appleImg from "@/assets/phone-apple.jpg";
+import samsungImg from "@/assets/phone-samsung.jpg";
+import googleImg from "@/assets/phone-google.jpg";
+import xiaomiImg from "@/assets/phone-xiaomi.jpg";
+import oneplusImg from "@/assets/phone-oneplus.jpg";
+import genericImg from "@/assets/phone-generic.jpg";
 
 export type Phone = {
   id: string;
   name: string;
+  /** Alias of `name`, kept for readability at call sites. */
+  model: string;
   brand: string;
   os: "iOS" | "Android";
   year: number;
@@ -17,9 +25,24 @@ export type Phone = {
   verified: boolean;
   /** Token-free hue used for the placeholder artwork. */
   accent: string;
-  /** Realistic placeholder artwork URL. */
+  /** Product artwork URL. */
   image: string;
+  /** Alias of `image`. */
+  imageUrl: string;
+  /** 8-digit Type Allocation Code — the first 8 digits of an IMEI. */
+  tac: string;
 };
+
+const BRAND_IMAGE: Record<string, string> = {
+  Apple: appleImg,
+  Samsung: samsungImg,
+  Google: googleImg,
+  Xiaomi: xiaomiImg,
+  Redmi: xiaomiImg,
+  Poco: xiaomiImg,
+  OnePlus: oneplusImg,
+};
+
 
 export const BRANDS = [
   "Apple",
@@ -56,15 +79,24 @@ const BRAND_HUE: Record<string, string> = {
 
 type Raw = [name: string, year: number, usd: number, storage: string, display: string];
 
+/** Stable 8-digit TAC derived from the model id. */
+function tacFor(id: string): string {
+  let h = 0;
+  for (const ch of id) h = (h * 31 + ch.charCodeAt(0)) % 1000000;
+  return `35${String(h).padStart(6, "0")}`;
+}
+
 function build(brand: string, os: Phone["os"], rows: Raw[]): Phone[] {
   return rows.map(([name, year, usd, storage, display]) => {
     const id = name
       .toLowerCase()
       .replace(/[^a-z0-9]+/g, "-")
       .replace(/(^-|-$)/g, "");
+    const image = BRAND_IMAGE[brand] ?? genericImg;
     return {
       id,
       name,
+      model: name,
       brand,
       os,
       year,
@@ -74,9 +106,12 @@ function build(brand: string, os: Phone["os"], rows: Raw[]): Phone[] {
       display,
       verified: true,
       accent: BRAND_HUE[brand] ?? "220",
-      image: `https://placehold.co/640x480/0f172a/ffffff/png?text=${encodeURIComponent(name)}`,
+      image,
+      imageUrl: image,
+      tac: tacFor(id),
     };
   });
+
 }
 
 const APPLE = build("Apple", "iOS", [
@@ -258,6 +293,27 @@ export const PRICE_TIERS = [
 export function formatNaira(price: number): string {
   return `₦${Math.round(price).toLocaleString()}`;
 }
+
+/** TAC (first 8 IMEI digits) → device, built from the catalog. */
+export const TAC_INDEX: Record<string, Phone> = PHONES.reduce<Record<string, Phone>>((acc, p) => {
+  acc[p.tac] = p;
+  return acc;
+}, {});
+
+/**
+ * Resolve a device from the first 8 digits of an IMEI (the Type Allocation Code).
+ * Falls back to a deterministic catalog match so any valid TAC returns a model.
+ */
+export function detectModelFromImei(raw: string): { phone: Phone; exact: boolean } | null {
+  const digits = raw.replace(/\D/g, "");
+  if (digits.length < 8) return null;
+  const tac = digits.slice(0, 8);
+  const exactMatch = TAC_INDEX[tac];
+  if (exactMatch) return { phone: exactMatch, exact: true };
+  const fallback = PHONES[Number(tac) % PHONES.length];
+  return fallback ? { phone: fallback, exact: false } : null;
+}
+
 
 export type VerificationResult = {
   imei: string;

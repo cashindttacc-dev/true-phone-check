@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { useServerFn } from "@tanstack/react-start";
 import {
   BadgeCheck,
@@ -9,6 +9,7 @@ import {
   Smartphone,
 } from "lucide-react";
 import { lookupImei, type ImeiLookupResult } from "@/lib/imei.functions";
+import { detectModelFromImei, formatNaira } from "@/data/phones";
 import {
   Dialog,
   DialogContent,
@@ -27,6 +28,8 @@ export function IMEIForm() {
   const runLookup = useServerFn(lookupImei);
 
   const digits = imei.replace(/\D/g, "");
+  const detected = useMemo(() => detectModelFromImei(digits), [digits]);
+
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -101,6 +104,34 @@ export function IMEIForm() {
           className="mt-3 h-12 w-full rounded-lg border border-input bg-background px-4 font-mono text-base tracking-wider text-foreground transition-colors placeholder:font-sans placeholder:tracking-normal placeholder:text-muted-foreground focus:border-primary focus:outline-none focus:ring-2 focus:ring-ring/40"
         />
         <p className="mt-2 text-xs text-muted-foreground">{digits.length}/15 digits entered</p>
+
+        {/* Live TAC (first 8 digits) → detected model */}
+        {detected && (
+          <div className="mt-4 flex items-center gap-3 rounded-xl border border-border bg-secondary/60 p-3">
+            <img
+              src={detected.phone.imageUrl}
+              alt={`${detected.phone.brand} ${detected.phone.model}`}
+              loading="lazy"
+              width={768}
+              height={576}
+              className="size-14 shrink-0 rounded-lg object-cover"
+            />
+            <div className="min-w-0">
+              <p className="text-xs uppercase tracking-wide text-muted-foreground">
+                Detected model · TAC {digits.slice(0, 8)}
+              </p>
+              <p className="truncate text-sm font-semibold text-foreground">
+                {detected.phone.brand} {detected.phone.model}
+              </p>
+              <p className="text-xs text-muted-foreground">
+                {detected.phone.storage} · {formatNaira(detected.phone.price)}
+                {detected.exact ? "" : " · closest catalog match"}
+              </p>
+            </div>
+          </div>
+        )}
+
+
 
         <button
           type="submit"
