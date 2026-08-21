@@ -294,6 +294,27 @@ export function formatNaira(price: number): string {
   return `₦${Math.round(price).toLocaleString()}`;
 }
 
+/** TAC (first 8 IMEI digits) → device, built from the catalog. */
+export const TAC_INDEX: Record<string, Phone> = PHONES.reduce<Record<string, Phone>>((acc, p) => {
+  acc[p.tac] = p;
+  return acc;
+}, {});
+
+/**
+ * Resolve a device from the first 8 digits of an IMEI (the Type Allocation Code).
+ * Falls back to a deterministic catalog match so any valid TAC returns a model.
+ */
+export function detectModelFromImei(raw: string): { phone: Phone; exact: boolean } | null {
+  const digits = raw.replace(/\D/g, "");
+  if (digits.length < 8) return null;
+  const tac = digits.slice(0, 8);
+  const exactMatch = TAC_INDEX[tac];
+  if (exactMatch) return { phone: exactMatch, exact: true };
+  const fallback = PHONES[Number(tac) % PHONES.length];
+  return fallback ? { phone: fallback, exact: false } : null;
+}
+
+
 export type VerificationResult = {
   imei: string;
   brand: string;
