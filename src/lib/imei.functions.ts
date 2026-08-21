@@ -1,7 +1,5 @@
 import { createServerFn } from "@tanstack/react-start";
-import { createClient } from "@supabase/supabase-js";
 import { z } from "zod";
-import type { Database } from "@/integrations/supabase/types";
 
 const imeiSchema = z.object({
   imei: z
@@ -149,22 +147,9 @@ export const lookupImei = createServerFn({ method: "POST" })
     const apiResult = await lookupViaRapidApi(data.imei);
     if (apiResult) return apiResult;
 
-    const key = process.env["SUPABASE_PUBLISHABLE_KEY"]!;
-    const supabase = createClient<Database>(process.env["SUPABASE_URL"]!, key, {
-      auth: { storage: undefined, persistSession: false, autoRefreshToken: false },
-      global: {
-        fetch: (input, init) => {
-          const headers = new Headers(init?.headers);
-          if (key.startsWith("sb_") && headers.get("Authorization") === `Bearer ${key}`) {
-            headers.delete("Authorization");
-          }
-          headers.set("apikey", key);
-          return fetch(input, { ...init, headers });
-        },
-      },
-    });
+    const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
 
-    const { data: row, error } = await supabase
+    const { data: row, error } = await supabaseAdmin
       .from("imei_records")
       .select("imei, brand, model, storage, purchase_region, warranty_status, warranty_until, authentic")
       .eq("imei", data.imei)
