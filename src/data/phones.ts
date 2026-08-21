@@ -1,11 +1,19 @@
 /**
- * Mock data layer for TruePhone.
+ * Device database for TruePhone.
  * Replace these arrays with real API calls when a backend is added.
  */
+import appleImg from "@/assets/phone-apple.jpg";
+import samsungImg from "@/assets/phone-samsung.jpg";
+import googleImg from "@/assets/phone-google.jpg";
+import xiaomiImg from "@/assets/phone-xiaomi.jpg";
+import oneplusImg from "@/assets/phone-oneplus.jpg";
+import genericImg from "@/assets/phone-generic.jpg";
 
 export type Phone = {
   id: string;
   name: string;
+  /** Alias of `name`, kept for readability at call sites. */
+  model: string;
   brand: string;
   os: "iOS" | "Android";
   year: number;
@@ -17,9 +25,24 @@ export type Phone = {
   verified: boolean;
   /** Token-free hue used for the placeholder artwork. */
   accent: string;
-  /** Realistic placeholder artwork URL. */
+  /** Product artwork URL. */
   image: string;
+  /** Alias of `image`. */
+  imageUrl: string;
+  /** 8-digit Type Allocation Code — the first 8 digits of an IMEI. */
+  tac: string;
 };
+
+const BRAND_IMAGE: Record<string, string> = {
+  Apple: appleImg,
+  Samsung: samsungImg,
+  Google: googleImg,
+  Xiaomi: xiaomiImg,
+  Redmi: xiaomiImg,
+  Poco: xiaomiImg,
+  OnePlus: oneplusImg,
+};
+
 
 export const BRANDS = [
   "Apple",
