@@ -105,6 +105,34 @@ export function IMEIForm() {
         />
         <p className="mt-2 text-xs text-muted-foreground">{digits.length}/15 digits entered</p>
 
+        {/* Live TAC (first 8 digits) → detected model */}
+        {detected && (
+          <div className="mt-4 flex items-center gap-3 rounded-xl border border-border bg-secondary/60 p-3">
+            <img
+              src={detected.phone.imageUrl}
+              alt={`${detected.phone.brand} ${detected.phone.model}`}
+              loading="lazy"
+              width={768}
+              height={576}
+              className="size-14 shrink-0 rounded-lg object-cover"
+            />
+            <div className="min-w-0">
+              <p className="text-xs uppercase tracking-wide text-muted-foreground">
+                Detected model · TAC {digits.slice(0, 8)}
+              </p>
+              <p className="truncate text-sm font-semibold text-foreground">
+                {detected.phone.brand} {detected.phone.model}
+              </p>
+              <p className="text-xs text-muted-foreground">
+                {detected.phone.storage} · {formatNaira(detected.phone.price)}
+                {detected.exact ? "" : " · closest catalog match"}
+              </p>
+            </div>
+          </div>
+        )}
+
+
+
         <button
           type="submit"
           disabled={loading}
