@@ -16,9 +16,10 @@ function Logo() {
       <span className="flex size-8 items-center justify-center rounded-lg bg-primary text-primary-foreground transition-transform group-hover:scale-105">
         <ShieldCheck className="size-4" />
       </span>
-      <span className="font-display text-lg font-bold tracking-tight text-foreground">
-        True<span className="text-success">Phone</span>
+      <span className="font-display text-lg font-bold tracking-tight text-brand-animated">
+        T-Phones
       </span>
+
     </Link>
   );
 }
@@ -107,10 +108,10 @@ function Footer() {
         <div className="space-y-2 text-sm">
           <p className="font-semibold text-foreground">Good to know</p>
           <p className="text-muted-foreground">
-            IMEI checks read from the TruePhone device registry.
+            IMEI checks read from the T-Phones device registry.
           </p>
           <p className="text-muted-foreground">
-            © {new Date().getFullYear()} TruePhone. All rights reserved.
+            © {new Date().getFullYear()} T-Phones. All rights reserved.
           </p>
         </div>
       </div>

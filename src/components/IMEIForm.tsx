@@ -215,7 +215,7 @@ export function IMEIForm() {
             <Smartphone className="size-3.5" />{" "}
             {result.source === "api"
               ? "Result served live from the global IMEI checker API."
-              : "Result served from the TruePhone device registry."}
+              : "Result served from the T-Phones device registry."}
           </p>
         </div>
       )}

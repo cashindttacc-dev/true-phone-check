@@ -13,13 +13,13 @@ export const Route = createFileRoute("/search")({
   },
   head: () => ({
     meta: [
-      { title: "Search Original Phones — TruePhone Catalog" },
+      { title: "Search Original Phones — T-Phones Catalog" },
       {
         name: "description",
         content:
           "Browse verified original smartphones from Apple, Samsung, Google and more. Filter by brand, price range and operating system.",
       },
-      { property: "og:title", content: "Search Original Phones — TruePhone Catalog" },
+      { property: "og:title", content: "Search Original Phones — T-Phones Catalog" },
       {
         property: "og:description",
         content: "Filter verified original phones by brand, price and OS.",

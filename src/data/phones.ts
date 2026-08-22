@@ -1,5 +1,5 @@
 /**
- * Device database for TruePhone.
+ * Device database for T-Phones.
  * Replace these arrays with real API calls when a backend is added.
  */
 import appleImg from "@/assets/phone-apple.jpg";

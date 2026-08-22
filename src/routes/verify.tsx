@@ -5,13 +5,13 @@ import { IMEIForm } from "@/components/IMEIForm";
 export const Route = createFileRoute("/verify")({
   head: () => ({
     meta: [
-      { title: "Verify Phone Authenticity by IMEI — TruePhone" },
+      { title: "Verify Phone Authenticity by IMEI — T-Phones" },
       {
         name: "description",
         content:
           "Enter a 15-digit IMEI or serial number to check whether a phone is an original device and see its warranty status.",
       },
-      { property: "og:title", content: "Verify Phone Authenticity by IMEI — TruePhone" },
+      { property: "og:title", content: "Verify Phone Authenticity by IMEI — T-Phones" },
       {
         property: "og:description",
         content: "Check any handset's IMEI for authenticity and warranty coverage.",

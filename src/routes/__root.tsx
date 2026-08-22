@@ -78,10 +78,10 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "TruePhone — Find and Verify Original Phones" },
+      { title: "T-Phones — Find and Verify Original Phones" },
       { name: "description", content: "Search original mobile phones and verify device authenticity by IMEI." },
       { name: "author", content: "Lovable" },
-      { property: "og:title", content: "TruePhone — Find and Verify Original Phones" },
+      { property: "og:title", content: "T-Phones — Find and Verify Original Phones" },
       { property: "og:description", content: "Search original phones and verify any IMEI in seconds." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },

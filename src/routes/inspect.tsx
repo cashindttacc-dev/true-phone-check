@@ -5,13 +5,13 @@ import { InspectionChecklist } from "@/components/InspectionChecklist";
 export const Route = createFileRoute("/inspect")({
   head: () => ({
     meta: [
-      { title: "Phone Inspection Checklist — TruePhone" },
+      { title: "Phone Inspection Checklist — T-Phones" },
       {
         name: "description",
         content:
           "Run through a step-by-step phone inspection checklist before buying a used device. Verify IMEI, physical condition, battery, cameras and security locks.",
       },
-      { property: "og:title", content: "Phone Inspection Checklist — TruePhone" },
+      { property: "og:title", content: "Phone Inspection Checklist — T-Phones" },
       {
         property: "og:description",
         content:

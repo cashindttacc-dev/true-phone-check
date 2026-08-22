@@ -1,6 +1,6 @@
-# TruePhone Authenticator
+# T-Phones Authenticator
 
-Build a fully functional and responsive web application called "TruePhone" designed to help users search for original mobile phones and check their authenticity. The app should be built using React, Next.js (App Router), and styled with Tailwind CSS and shadcn/ui components.
+Build a fully functional and responsive web application called "T-Phones" designed to help users search for original mobile phones and check their authenticity. The app should be built using React, Next.js (App Router), and styled with Tailwind CSS and shadcn/ui components.
 
 Here are the core requirements and features:
 
