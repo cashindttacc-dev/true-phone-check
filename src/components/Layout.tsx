@@ -107,10 +107,10 @@ function Footer() {
         <div className="space-y-2 text-sm">
           <p className="font-semibold text-foreground">Good to know</p>
           <p className="text-muted-foreground">
-            IMEI checks read from the TruePhone device registry.
+            IMEI checks read from the T-Phones device registry.
           </p>
           <p className="text-muted-foreground">
-            © {new Date().getFullYear()} TruePhone. All rights reserved.
+            © {new Date().getFullYear()} T-Phones. All rights reserved.
           </p>
         </div>
       </div>

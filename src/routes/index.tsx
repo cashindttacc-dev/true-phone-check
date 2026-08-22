@@ -7,13 +7,13 @@ import { PHONES } from "@/data/phones";
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "TruePhone — Find and Verify Original Phones" },
+      { title: "T-Phones — Find and Verify Original Phones" },
       {
         name: "description",
         content:
-          "TruePhone helps you search original mobile phones and verify device authenticity with a 15-digit IMEI check.",
+          "T-Phones helps you search original mobile phones and verify device authenticity with a 15-digit IMEI check.",
       },
-      { property: "og:title", content: "TruePhone — Find and Verify Original Phones" },
+      { property: "og:title", content: "T-Phones — Find and Verify Original Phones" },
       {
         property: "og:description",
         content: "Search genuine phones and verify any IMEI in seconds.",
@@ -48,7 +48,7 @@ function Index() {
 
       {/* How it works */}
       <section className="mx-auto max-w-6xl px-4 py-16 sm:px-6">
-        <h2 className="text-2xl font-bold text-foreground sm:text-3xl">How TruePhone works</h2>
+        <h2 className="text-2xl font-bold text-foreground sm:text-3xl">How T-Phones works</h2>
         <div className="mt-8 grid gap-5 md:grid-cols-3">
           {STEPS.map(({ icon: Icon, title, body }, i) => (
             <div
