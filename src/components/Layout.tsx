@@ -16,9 +16,10 @@ function Logo() {
       <span className="flex size-8 items-center justify-center rounded-lg bg-primary text-primary-foreground transition-transform group-hover:scale-105">
         <ShieldCheck className="size-4" />
       </span>
-      <span className="font-display text-lg font-bold tracking-tight text-foreground">
-        True<span className="text-success">Phone</span>
+      <span className="font-display text-lg font-bold tracking-tight text-brand-animated">
+        T-Phones
       </span>
+
     </Link>
   );
 }
